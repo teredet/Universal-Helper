@@ -1,15 +1,14 @@
-from pip import main
 import requests
-
+from secretkey import API_KEY
 
 def get_info(city='Kyiv', lang='en'):
     url = 'https://api.openweathermap.org/data/2.5/weather'
-    params = {'appid':'af655b4d6ea7e6619cf1f23c711647c8',
+    params = {'appid':API_KEY,
               'q':city,
               'units':'metric',
               'lang':lang}
 
-    return requests.get(url=url, params=params).text
+    return requests.get(url=url, params=params).json()
 
 
 
