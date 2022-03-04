@@ -1,4 +1,3 @@
-from pip import main
 import requests
 
 
@@ -9,7 +8,7 @@ def get_info(city='Kyiv', lang='en'):
               'units':'metric',
               'lang':lang}
 
-    return requests.get(url=url, params=params).text
+    return requests.get(url=url, params=params).json()
 
 
 
