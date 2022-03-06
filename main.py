@@ -13,7 +13,7 @@ from secretkey import API_KEY
 
 class HelperApp(App):
     
-    def get_json(self, city='Kyiv', lang='en'):
+    def get_json(self, city, lang='en'):
         url = 'https://api.openweathermap.org/data/2.5/weather'
         params = {
             'appid':API_KEY,
@@ -32,7 +32,7 @@ class HelperApp(App):
         humidity = weather['main']['humidity']  # %
         wind_speed = int(weather['wind']['speed'] * 3.6)  # from  meter/sec to km/hour
 
-        self.result.text = f'''
+        return f'''
         {city},{country}
         {temp}°C - {weather_now}
         Humidity - {humidity}%
@@ -42,21 +42,25 @@ class HelperApp(App):
 
     def print_weather(self, instance):
         json = self.get_json(self.city.text)
-        self.get_info(json)
+        if json['cod'] == 200:
+            self.result.text = self.get_info(json)
+        else:
+            self.result.text = 'Invalid city'
+
 
     def build(self):
         Window.size = (300, 600)
 
         root = BoxLayout(orientation='vertical')
 
-        topBox = BoxLayout(orientation='vertical', size_hint=[1,0.2])
-        topBox.add_widget(Label(text='Enter your city:', size_hint=[1,.2]))
+        topBox = BoxLayout(orientation='vertical', size_hint=[1,0.1])
+        topBox.add_widget(Label(text='Enter your city:', font_size = 25))
         root.add_widget(topBox)
 
-        midleBox = BoxLayout(orientation='vertical', size_hint=[1,.1])
+        midleBox = BoxLayout(orientation='vertical', size_hint=[1,.2])
         self.city = TextInput(
             text = '', readonly = False, font_size = 25, 
-            background_color = [1,1,1,.5],
+            background_color = [1,1,1,.5], multiline = False,
             foreground_color = (1,1,1,1), cursor_color = (1,1,1,1)
         )
         midleBox.add_widget(self.city)
@@ -65,7 +69,7 @@ class HelperApp(App):
 
         root.add_widget(midleBox)
 
-        bottomBox = BoxLayout(orientation='horizontal', size_hint=[1,.4])
+        bottomBox = BoxLayout(orientation='horizontal', size_hint=[1,.8])
         bottomBox.add_widget(self.result)
 
         root.add_widget(bottomBox)
