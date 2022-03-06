@@ -49,23 +49,26 @@ class HelperApp(App):
 
         root = BoxLayout(orientation='vertical')
 
-        root.add_widget(Label(text='Enter your city:'))
+        topBox = BoxLayout(orientation='vertical', size_hint=[1,0.2])
+        topBox.add_widget(Label(text='Enter your city:', size_hint=[1,.2]))
+        root.add_widget(topBox)
 
-        city_input = BoxLayout(orientation='horizontal')
+        midleBox = BoxLayout(orientation='vertical', size_hint=[1,.1])
         self.city = TextInput(
             text = '', readonly = False, font_size = 25, 
-            size_hint = [1,.2], background_color = [1,1,1,.5],
+            background_color = [1,1,1,.5],
             foreground_color = (1,1,1,1), cursor_color = (1,1,1,1)
         )
-
-        city_input.add_widget(self.city)
-        city_input.add_widget(Button(text='Enter', on_press = self.print_weather))
+        midleBox.add_widget(self.city)
+        midleBox.add_widget(Button(text='Enter', on_press = self.print_weather))
         self.result = TextInput(readonly=True)
 
+        root.add_widget(midleBox)
 
-        root.add_widget(city_input)
+        bottomBox = BoxLayout(orientation='horizontal', size_hint=[1,.4])
+        bottomBox.add_widget(self.result)
 
-        root.add_widget(self.result)
+        root.add_widget(bottomBox)
 
         return root
 
