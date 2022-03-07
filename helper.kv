@@ -1,0 +1,43 @@
+#:kivy 2.0.0
+
+<MainLayout>:
+    orientation: 'vertical'
+    city: city
+    result: result
+
+
+    BoxLayout:
+        id: topBox
+        orientation:'vertical'
+        size_hint: [1,0.1]
+
+        Label:
+            text: 'Enter your city:'
+            font_size: 25
+
+    BoxLayout:
+        id: midleBox
+        orientation:'vertical'
+        size_hint: [1,.2]
+
+        TextInput:
+            id: city
+            text: ''
+            font_size: 25
+            multiline: False
+            background_color: [1,1,1,.5]
+            foreground_color: (1,1,1,1)
+            cursor_color: (1,1,1,1)
+
+        Button:
+            text: 'Enter'
+            on_press: root.print_weather()
+    
+    BoxLayout:
+        id: bottomBox
+        orientation: 'vertical'
+        size_hint: [1,.8]
+        
+        TextInput:
+            id: result
+            readonly: True

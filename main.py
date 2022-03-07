@@ -1,19 +1,14 @@
 import requests
 from kivy.app import App
-
 from kivy.core.window import Window
-from kivy.uix.button import Button
-from kivy.uix.label import Label
-from kivy.uix.textinput import TextInput
-
 from kivy.uix.boxlayout import BoxLayout
 
 from secretkey import API_KEY
 
 
-class HelperApp(App):
-    
-    def get_json(self, city, lang='en'):
+Window.size = (480, 853)
+
+def get_json(city, lang='en'):
         url = 'https://api.openweathermap.org/data/2.5/weather'
         params = {
             'appid':API_KEY,
@@ -23,58 +18,34 @@ class HelperApp(App):
 
         return requests.get(url=url, params=params).json()
 
-    def get_info(self, weather):
-        city = weather['name']
-        country = weather['sys']['country']  # UA
-        weather_now = weather['weather'][0]['description'].capitalize()
-        temp = int(weather['main']['temp'])  # °C
-        pressure = weather['main']['pressure']  # hPa
-        humidity = weather['main']['humidity']  # %
-        wind_speed = int(weather['wind']['speed'] * 3.6)  # from  meter/sec to km/hour
+def get_info(weather):
+    city = weather['name']
+    country = weather['sys']['country']  # UA
+    weather_now = weather['weather'][0]['description'].capitalize()
+    temp = int(weather['main']['temp'])  # °C
+    pressure = weather['main']['pressure']  # hPa
+    humidity = weather['main']['humidity']  # %
+    wind_speed = int(weather['wind']['speed'] * 3.6)  # from  meter/sec to km/hour
 
-        return f'''
-        {city},{country}
-        {temp}°C - {weather_now}
-        Humidity - {humidity}%
-        Wind speed - {wind_speed} km/hour
-        Atmospheric pressure - {pressure} hPa
-        '''
+    return f'''
+    {city},{country}
+    {temp}°C - {weather_now}
+    Humidity - {humidity}%
+    Wind speed - {wind_speed} km/hour
+    Atmospheric pressure - {pressure} hPa
+    '''
 
-    def print_weather(self, instance):
-        json = self.get_json(self.city.text)
+class MainLayout(BoxLayout):
+    def print_weather(self):
+        json = get_json(self.city.text)
         if json['cod'] == 200:
-            self.result.text = self.get_info(json)
+            self.result.text = get_info(json)
         else:
             self.result.text = 'Invalid city'
 
-
+class HelperApp(App):
     def build(self):
-        Window.size = (300, 600)
-
-        root = BoxLayout(orientation='vertical')
-
-        topBox = BoxLayout(orientation='vertical', size_hint=[1,0.1])
-        topBox.add_widget(Label(text='Enter your city:', font_size = 25))
-        root.add_widget(topBox)
-
-        midleBox = BoxLayout(orientation='vertical', size_hint=[1,.2])
-        self.city = TextInput(
-            text = '', readonly = False, font_size = 25, 
-            background_color = [1,1,1,.5], multiline = False,
-            foreground_color = (1,1,1,1), cursor_color = (1,1,1,1)
-        )
-        midleBox.add_widget(self.city)
-        midleBox.add_widget(Button(text='Enter', on_press = self.print_weather))
-        self.result = TextInput(readonly=True)
-
-        root.add_widget(midleBox)
-
-        bottomBox = BoxLayout(orientation='horizontal', size_hint=[1,.8])
-        bottomBox.add_widget(self.result)
-
-        root.add_widget(bottomBox)
-
-        return root
+        return MainLayout()
 
 if __name__ == '__main__':
     HelperApp().run()
