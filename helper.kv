@@ -3,7 +3,8 @@
 <MainLayout>:
     orientation: 'vertical'
     city: city
-    result: result
+    weather_result: weather_result
+    curency_result: curency_result
 
 
     BoxLayout:
@@ -39,5 +40,14 @@
         size_hint: [1,.8]
         
         TextInput:
-            id: result
+            id: weather_result
+            readonly: True
+        
+        Button:
+            text: 'Get currency'
+            on_press: root.print_currency()
+            size_hint: [1,.2]
+        
+        TextInput:
+            id: curency_result
             readonly: True
