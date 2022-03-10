@@ -50,12 +50,48 @@
     orientation: 'vertical'
 
     curency_result: curency_result
+    mainbutton: mainbutton
 
-    Button:
-        text: 'Get currency'
-        on_press: root.print_currency()
+    BoxLayout:
+        id: currencyBox
+        orientation:'horizontal'
         size_hint: [1,.2]
 
+        Button:
+            id: mainbutton
+            text: 'Currencies'
+            on_release: root.dropdown.open(self)
+
+    
+        Button:
+            text: 'Get currency'
+            on_press: root.print_currency()
+    
     TextInput:
         id: curency_result
         readonly: True
+
+<CurrencyDropDown>:
+    dismiss_on_select: False
+    
+    usd: usd
+    eur: eur
+    pln: pln
+    rub: rub
+
+    ToggleButton:
+        id: usd
+        text: 'USD'  
+        size_hint_y: None
+    ToggleButton:
+        id: eur
+        text: 'EUR'
+        size_hint_y: None
+    ToggleButton:
+        id: pln
+        text: 'PLN'
+        size_hint_y: None
+    ToggleButton:
+        id: rub
+        text: 'RUB'
+        size_hint_y: None

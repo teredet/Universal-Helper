@@ -18,13 +18,30 @@ class WeatherLayout(BoxLayout):
             self.weather_result.text = 'Invalid city'
 
 
+class CurrencyDropDown(DropDown):
+    pass
+
+
 class CurrencyLayout(BoxLayout):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.dropdown = CurrencyDropDown()   
     
     def print_currency(self):
+        seccond_currencies = []
+        toggleButtons = {
+            self.dropdown.usd:'usd', 
+            self.dropdown.eur:'eur', 
+            self.dropdown.pln:'pln', 
+            self.dropdown.rub:'rub'}
 
+        for toggleButton in toggleButtons.keys():
+            if toggleButton.state == 'down':
+                seccond_currencies.append(toggleButtons[toggleButton])
+                
         res = ''
         if currency.get_json('uah'):
-            for i in currency.get_info(currency.get_json('uah'),  'uah', {'usd', 'eur'}):
+            for i in currency.get_info(currency.get_json('uah'),  'uah', seccond_currencies):
                 res += i + '\n'
         else:
             res = 'Invalid currency'
