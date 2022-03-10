@@ -1,10 +1,13 @@
 #:kivy 2.0.0
-
 <MainLayout>:
     orientation: 'vertical'
+
+
+<WeatherLayout>:
+    orientation: 'vertical'
+
     city: city
     weather_result: weather_result
-    curency_result: curency_result
 
 
     BoxLayout:
@@ -42,12 +45,17 @@
         TextInput:
             id: weather_result
             readonly: True
-        
-        Button:
-            text: 'Get currency'
-            on_press: root.print_currency()
-            size_hint: [1,.2]
-        
-        TextInput:
-            id: curency_result
-            readonly: True
+
+<CurrencyLayout>:
+    orientation: 'vertical'
+
+    curency_result: curency_result
+
+    Button:
+        text: 'Get currency'
+        on_press: root.print_currency()
+        size_hint: [1,.2]
+
+    TextInput:
+        id: curency_result
+        readonly: True
