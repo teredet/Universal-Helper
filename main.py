@@ -33,7 +33,15 @@ class CurrencyLayout(BoxLayout):
             self.dropdown.usd:'usd', 
             self.dropdown.eur:'eur', 
             self.dropdown.pln:'pln', 
-            self.dropdown.rub:'rub'}
+            self.dropdown.rub:'rub',
+            self.dropdown.gbp:'gbp',
+            self.dropdown.jpy:'jpy',
+            self.dropdown.turkish_lira:'try',
+            self.dropdown.nok:'nok',
+            self.dropdown.aed:'aed',
+            self.dropdown.cny:'cny',
+            self.dropdown.czk:'czk',
+            self.dropdown.byn:'byn',}
 
         for toggleButton in toggleButtons.keys():
             if toggleButton.state == 'down':
