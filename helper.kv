@@ -6,6 +6,7 @@
 <WeatherLayout>:
     orientation: 'vertical'
 
+    img: img
     city: city
     weather_result: weather_result
 
@@ -16,7 +17,14 @@
         size_hint: [1,0.1]
 
         Label:
-            text: 'Enter your city:'
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            text: '[color=000000]Enter your city:[/color]'
+            markup: True
             font_size: 25
 
     BoxLayout:
@@ -29,22 +37,32 @@
             text: ''
             font_size: 25
             multiline: False
-            background_color: [1,1,1,.5]
-            foreground_color: (1,1,1,1)
-            cursor_color: (1,1,1,1)
+            background_color: [1,1,1,1]
+            foreground_color: (0,0,0,1)
+            cursor_color: (0,0,0,1)
 
         Button:
             text: 'Enter'
             on_press: root.print_weather()
     
-    BoxLayout:
-        id: bottomBox
-        orientation: 'vertical'
+    FloatLayout:
         size_hint: [1,.8]
+        
+        BoxLayout:
+            id: bottomBox
+            orientation: 'horizontal'
+            pos_hint: {'top': 1}
 
-        TextInput:
-            id: weather_result
-            readonly: True
+            TextInput:
+                id: weather_result
+                readonly: True
+
+        Image:
+            id: img
+            pos_hint: {'x': .75, 'y':.65}
+            size_hint: None, None
+            source: ''
+            size: self.texture_size
 
 <CurrencyLayout>:
     orientation: 'vertical'

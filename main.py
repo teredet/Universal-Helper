@@ -13,7 +13,8 @@ class WeatherLayout(BoxLayout):
     def print_weather(self):           
         json = weather.get_json(self.city.text)
         if json['cod'] == 200:
-            self.weather_result.text = weather.get_info(json)
+            self.weather_result.text = weather.get_info(json)["weather"]
+            self.img.source = weather.get_info(json)["img"]
         else:
             self.weather_result.text = 'Invalid city'
 

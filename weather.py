@@ -22,13 +22,19 @@ def get_info(weather):
     humidity = weather['main']['humidity']  # %
     wind_speed = int(weather['wind']['speed'] * 3.6)  # from  meter/sec to km/hour
 
-    return f'''
+    img_dict = {"Clouds": 'img/2.png', "Clear": 'img/1.png', "Rain": 'img/4.png', "Snow": 'img/3.png', "Extreme": 'img/5.png'}
+
+    return {
+        "weather":f'''
     {city},{country}
     {temp}°C - {weather_now}
     Humidity - {humidity}%
     Wind speed - {wind_speed} km/hour
     Atmospheric pressure - {pressure} hPa
-    '''
+    ''', 
+        "img":img_dict[weather['weather'][0]['main']]
+        }
 
 if __name__ == '__main__':
-    print(get_info(get_json('kiev')))
+    # print(get_info(get_json('kiev')))
+    print(get_json('мурманскg'))
