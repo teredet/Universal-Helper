@@ -47,14 +47,12 @@ class CurrencyLayout(BoxLayout):
             if toggleButton.state == 'down':
                 seccond_currencies.append(toggleButtons[toggleButton])
                 
-        res = ''
         if currency.get_json('uah'):
-            for i in currency.get_info(currency.get_json('uah'),  'uah', seccond_currencies):
-                res += i + '\n'
+            res = currency.get_info(currency.get_json('uah'),  'uah', seccond_currencies)
+            self.currency_result_main.text = res["main_res"]
+            self.currency_result_reversed.text = res["reversed_res"]
         else:
-            res = 'Invalid currency'
-
-        self.curency_result.text = res
+            self.currency_result_main = 'Invalid currency'
 
 class MainLayout(BoxLayout):
     def __init__(self, **kwargs):

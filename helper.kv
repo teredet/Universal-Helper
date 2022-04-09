@@ -41,7 +41,7 @@
         id: bottomBox
         orientation: 'vertical'
         size_hint: [1,.8]
-        
+
         TextInput:
             id: weather_result
             readonly: True
@@ -49,7 +49,8 @@
 <CurrencyLayout>:
     orientation: 'vertical'
 
-    curency_result: curency_result
+    currency_result_main: currency_result_main
+    currency_result_reversed: currency_result_reversed
     mainbutton: mainbutton
 
     BoxLayout:
@@ -67,9 +68,19 @@
             text: 'Get currency'
             on_press: root.print_currency()
     
-    TextInput:
-        id: curency_result
-        readonly: True
+    BoxLayout:
+        id: curency_result_box
+        orientation:'horizontal'
+        padding: [0, 0, 0, 0]
+
+        TextInput:
+            id: currency_result_main
+            readonly: True  
+            padding: [20, 20, 0, 0]
+        TextInput:
+            id: currency_result_reversed
+            readonly: True  
+            padding: [20, 20, 0, 0]
 
 <CurrencyDropDown>:
     dismiss_on_select: False
